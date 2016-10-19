@@ -13,7 +13,7 @@ export class PodcastListComponent implements OnInit {
   constructor(private podcastsService:PodcastsService) { }
 
   ngOnInit() {
-    this.podcastItems = this.podcastsService.getItems();
+    this.podcastsService.getItems().then(items => this.podcastItems = items);
   }
 
 }

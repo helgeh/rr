@@ -10,8 +10,8 @@ export class PodcastsService {
 
   constructor() { }
 
-  getItems() {
-    return this.podcasts;
+  getItems():Promise<Object[]> {
+    return Promise.resolve(this.podcasts);
   }
 
 }
