@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PodcastsService } from '../podcasts.service';
 
 @Component({
   selector: 'app-podcast-list',
@@ -7,14 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PodcastListComponent implements OnInit {
 
-  podcastItems = [
-    {title: 'Some title'},
-    {title: 'Another title'}
-  ];
+  podcastItems = [];
 
-  constructor() { }
+  constructor(private podcastsService:PodcastsService) { }
 
   ngOnInit() {
+    this.podcastItems = this.podcastsService.getItems();
   }
 
 }
