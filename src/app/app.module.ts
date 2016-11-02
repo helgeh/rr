@@ -12,7 +12,8 @@ import { PodcastsService } from './podcasts.service';
   declarations: [
     AppComponent,
     PodcastListComponent,
-    PodcastItemComponent
+    PodcastItemComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
