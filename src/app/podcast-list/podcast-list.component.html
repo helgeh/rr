@@ -1,7 +1,3 @@
-<div>
-  <ul>
-    <li *ngFor="let item of podcastItems">
-      <app-podcast-item [podcast]="item"></app-podcast-item>
-    </li>
-  </ul>
-</div>
+<md-card class="item" *ngFor="let item of podcastItems">
+  <app-podcast-item [podcast]="item"></app-podcast-item>
+</md-card>

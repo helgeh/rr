@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { PodcastListComponent } from './podcast-list/podcast-list.component';
@@ -19,7 +20,8 @@ import { PodcastsService } from './podcasts.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    MaterialModule.forRoot()
   ],
   providers: [PodcastsService],
   bootstrap: [AppComponent]
