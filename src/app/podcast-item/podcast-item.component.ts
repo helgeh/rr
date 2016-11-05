@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { PodcastPlayerService } from '../player/podcast-player.service';
+import { Podcast } from '../podcast';
+
 @Component({
   selector: 'app-podcast-item',
   templateUrl: './podcast-item.component.html',
@@ -7,11 +10,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PodcastItemComponent implements OnInit {
 
-  @Input() podcast;
+  @Input() podcast:Podcast;
 
-  constructor() { }
+  constructor(private player:PodcastPlayerService) { }
 
   ngOnInit() {
+  }
+
+  play() {
+    let url = this.podcast.enclosure['@attributes'].url;
+    this.player.load(url);
+    this.player.play();
   }
 
 }

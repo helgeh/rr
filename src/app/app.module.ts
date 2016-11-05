@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { PodcastListComponent } from './podcast-list/podcast-list.component';
 import { PodcastItemComponent } from './podcast-item/podcast-item.component';
 import { PodcastsService } from './podcasts.service';
+import { PodcastPlayerService } from './player/podcast-player.service'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { PodcastsService } from './podcasts.service';
     JsonpModule,
     MaterialModule.forRoot()
   ],
-  providers: [PodcastsService],
+  providers: [
+    PodcastsService,
+    PodcastPlayerService 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

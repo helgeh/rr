@@ -7,4 +7,5 @@ export class Podcast {
   language: string = "en";
   link: string = "";
   title: string = "Title";
+  enclosure: Object;
 }
