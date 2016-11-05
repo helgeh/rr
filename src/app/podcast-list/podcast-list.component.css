@@ -1,3 +1,11 @@
-.item {
+md-card {
     margin: 10px;
+}
+
+.item {
+    filter: brightness(0.8);
+}
+
+.item.active {
+    filter: brightness(1);
 }

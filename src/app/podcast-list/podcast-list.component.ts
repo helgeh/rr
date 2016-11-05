@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { PodcastsService } from '../podcasts.service';
-import { Podcast } from '../podcast';
 
 @Component({
   selector: 'app-podcast-list',

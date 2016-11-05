@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 
-import { Podcast } from '../podcast';
-
 @Injectable()
 export class PodcastPlayerService {
 
-  audio;
-  url: string;
+  onLoaded: Promise<string>;
 
-  constructor() { }
+  private audio;
+
+  constructor() {
+    this.onLoaded = new Promise(resolve => this.podcastLoaded = resolve);
+    this.audio = new Audio();
+  }
 
   load(podcast: string) {
-    this.url = podcast;
-    this.audio = new Audio(this.url);
-    console.log('loaded',  podcast);
+    this.audio.src = podcast;
+    this.audio.load();
+    this.podcastLoaded(podcast);
   }
 
   play() {
     this.audio.play();
-    console.log('started playing', this.url);
   }
+
+  private podcastLoaded(podcast: string) {};
 
 }

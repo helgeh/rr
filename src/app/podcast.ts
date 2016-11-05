@@ -1,4 +1,5 @@
 export class Podcast {
+  guid: string;
   category: string = "";
   copyright: string = "nocopy";
   description: string = "Some description...";
@@ -8,4 +9,5 @@ export class Podcast {
   link: string = "";
   title: string = "Title";
   enclosure: Object;
+  isActive: boolean = false;
 }
