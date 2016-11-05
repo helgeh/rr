@@ -1,3 +1,5 @@
-<md-card *ngFor="let item of podcastItems" class="item" [class.active]="item.isActive">
-  <app-podcast-item [podcast]="item"></app-podcast-item>
-</md-card>
+<div (window:scroll)="onScroll($event)">
+  <md-card *ngFor="let item of podcastItems" class="item" [class.active]="item.isActive">
+    <app-podcast-item [podcast]="item"></app-podcast-item>
+  </md-card>
+</div>
