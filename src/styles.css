@@ -7,3 +7,45 @@ body {
     margin: 0;
     font-family: Roboto, sans-serif;
 }
+
+
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes spinner {
+    to {-webkit-transform: rotate(360deg);}
+}
+
+.spinner {
+    min-width: 62px;
+    min-height: 62px;
+    width: 62px;
+    height: 62px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.spinner:before {
+    content: 'Loading…';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 54px;
+    height: 54px;
+}
+
+.spinner:not(:required):before {
+    content: '';
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #c8c8c8;
+    border-bottom-color: #c8c8c8;
+    animation: spinner .8s ease infinite;
+    -webkit-animation: spinner .8s ease infinite;
+}
