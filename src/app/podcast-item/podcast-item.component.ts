@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { PodcastPlayerService } from '../player/podcast-player.service';
+import { PodcastsService } from '../podcasts.service';
 import { Podcast } from '../podcast';
 
 @Component({
@@ -12,22 +12,12 @@ export class PodcastItemComponent implements OnInit {
 
   @Input() podcast:Podcast;
 
-  constructor(private player:PodcastPlayerService) { }
+  constructor(private podcastsService: PodcastsService) { }
 
-  ngOnInit() {
-    // TODO: for some reason this only works one time. When one podcast
-    // has been loaded and marked active, no other gets highlighted from 
-    // following clicks.
-    // Maybe try the new subscribe pattern shipped with angular2 in stead
-    // of the promise in player.service
-    this.player.onLoaded
-      .then(url => this.podcast.isActive = this.getUrl() == url);
-  }
+  ngOnInit() { }
 
   play() {
-    let url = this.getUrl();
-    this.player.load(url);
-    this.player.play();
+    this.podcastsService.play(this.podcast);
   }
 
   private getUrl(): string {

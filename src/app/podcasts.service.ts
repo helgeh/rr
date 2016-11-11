@@ -3,6 +3,7 @@ import { Jsonp, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
+import { PodcastPlayerService } from './player/podcast-player.service';
 import { Podcast } from './podcast';
 
 @Injectable()
@@ -13,12 +14,9 @@ export class PodcastsService {
   feedURL: string = 'http://podkast.nrk.no/program/radioresepsjonen.rss';
 
   promise: Promise<Podcast>;
+  currentPodcast: Podcast;
 
-  constructor(private jsonp: Jsonp) {
-    this.load();
-  }
-
-  load(): void {
+  constructor(private jsonp: Jsonp, private player:PodcastPlayerService) {
     let params = new URLSearchParams();
     params.set('jsonp', 'JSONP_CALLBACK');
     params.set('feed', this.feedURL);
@@ -36,6 +34,12 @@ export class PodcastsService {
   getItems(): Promise<Object[]> {
     return this.promise
       .then(podcast => podcast.item);
+  }
+
+  play(podcast: Podcast) {
+    this.currentPodcast = podcast;
+    this.player.load(this.currentPodcast.enclosure['@attributes'].url);
+    this.player.play();
   }
 
 }

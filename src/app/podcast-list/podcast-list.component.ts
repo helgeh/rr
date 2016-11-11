@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { PodcastsService } from '../podcasts.service';
+import { Podcast } from '../podcast';
 
 @Component({
   selector: 'app-podcast-list',
@@ -9,25 +10,29 @@ import { PodcastsService } from '../podcasts.service';
 })
 export class PodcastListComponent {
 
-  private allPodcastItems: Object[];
+  private allPodcastItems: Podcast[];
   
-  podcastItems :Object[];
+  podcastItems :Podcast[];
   cap: number = 1;
 
   constructor(private podcastsService: PodcastsService) { }
 
   ngOnInit() {
     this.podcastsService.getItems()
-      .then(items => this.setItems(items));
+      .then((items :Podcast[]) => this.setItems(items));
   }
 
-  private setItems(items: Object[]) {
+  private setItems(items: Podcast[]) {
     this.allPodcastItems = items;
     this.podcastItems = this.getClampedItems();
   }
 
-  private getClampedItems(): Object[] {
+  private getClampedItems(): Podcast[] {
     return this.allPodcastItems.slice(0, this.cap * 10);
+  }
+
+  isActive(item :Podcast) {
+    return this.podcastsService.currentPodcast == item;
   }
 
   // TODO: This should be throttled somehow. Maybe by adding a "load more"" button?
