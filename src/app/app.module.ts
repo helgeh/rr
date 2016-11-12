@@ -7,7 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { PodcastListComponent } from './podcast-list/podcast-list.component';
 import { PodcastItemComponent } from './podcast-item/podcast-item.component';
-import { PodcastsService } from './podcasts.service';
+import { PodcastsService } from './shared';
 import { PodcastPlayerService } from './player/podcast-player.service';
 import { PlayerComponent } from './player/player.component'
 

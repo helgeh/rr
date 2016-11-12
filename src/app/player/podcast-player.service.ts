@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Podcast } from '../podcast';
+import { Podcast } from '../shared';
 
 @Injectable()
 export class PodcastPlayerService {

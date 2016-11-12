@@ -3,7 +3,7 @@ import { Jsonp, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { PodcastPlayerService } from './player/podcast-player.service';
+import { PodcastPlayerService } from '../player/podcast-player.service';
 import { Channel } from './channel';
 import { Podcast } from './podcast';
 
