@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PodcastsService } from './podcasts.service';
+import { PodcastsService } from './shared';
 
 @Component({
   selector: 'app-root',
