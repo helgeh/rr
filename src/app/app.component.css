@@ -1,0 +1,8 @@
+
+/* TODO Need more info. Can't justify toolbar content because 
+        angular adds some specificity to the selector. 
+        Current workaround: moved declaration to global styles.css 
+md-toolbar-row {
+    justify-content: space-between;
+}
+*/

@@ -20,8 +20,4 @@ export class PodcastItemComponent implements OnInit {
     this.podcastsService.play(this.podcast);
   }
 
-  private getUrl(): string {
-    return this.podcast.enclosure['@attributes'].url;
-  }
-
 }

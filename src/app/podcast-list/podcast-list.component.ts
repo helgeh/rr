@@ -19,7 +19,7 @@ export class PodcastListComponent {
 
   ngOnInit() {
     this.podcastsService.getItems()
-      .then((items :Podcast[]) => this.setItems(items));
+      .then((items: Podcast[]) => this.setItems(items));
   }
 
   private setItems(items: Podcast[]) {

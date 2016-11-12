@@ -20,8 +20,20 @@ export class PodcastPlayerService {
     // this.podcastLoaded(podcast);
   }
 
+  hasSong() {
+    return this.audio.src;
+  }
+
   play() {
     this.audio.play();
+  }
+
+  pause() {
+    this.audio.pause();
+  }
+
+  isPlaying() {
+    return !this.audio.paused;
   }
 
   // private podcastLoaded(podcast: Podcast) {}

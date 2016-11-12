@@ -1,0 +1,5 @@
+<div>
+  <button md-icon-button (click)="isPlaying() ? pause() : play()" [disabled]="!isLoaded()">
+    <md-icon class="play">{{ isPlaying() ? 'pause_circle_outline' : 'play_circle_outline' }}</md-icon>
+  </button>
+</div>

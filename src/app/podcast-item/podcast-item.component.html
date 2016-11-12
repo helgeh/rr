@@ -1,11 +1,11 @@
 <md-card-title-group>
   <button md-fab (click)="play()">
-    <md-icon class="md-24">play_circle_outline</md-icon>
+    <md-icon class="start_playing">play_circle_outline</md-icon>
   </button>
-  <md-card-subtitle>
-    {{ podcast.title }}
-  </md-card-subtitle>
   <md-card-title>
-    {{ podcast.description }}
+    {{ podcast.title }}
   </md-card-title>
+  <md-card-subtitle>
+    {{ podcast.description }}
+  </md-card-subtitle>
 </md-card-title-group>
