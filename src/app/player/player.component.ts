@@ -9,9 +9,27 @@ import { PodcastPlayerService } from './podcast-player.service'
 })
 export class PlayerComponent implements OnInit {
 
-  constructor(private player: PodcastPlayerService) {}
+  currentTime = 0;
+
+  private timeoutId;
+
+  constructor(private player: PodcastPlayerService) {
+    // this.player.onTimeUpdate.subscribe(time => this.currentTime = time);
+    this.updateCurrentTime();
+  }
 
   ngOnInit() {
+  }
+
+  updateCurrentTime() {
+    if (this.isLoaded()) {
+      let time = Math.floor(this.player.getCurrentTime()) * 1000;
+      if (time > this.currentTime) {
+        this.currentTime = time;
+      }
+    }
+    clearTimeout(this.timeoutId);
+    this.timeoutId = setTimeout(this.updateCurrentTime.bind(this), 100);
   }
 
   isLoaded() {

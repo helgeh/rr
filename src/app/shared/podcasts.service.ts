@@ -26,6 +26,7 @@ export class PodcastsService {
       .toPromise()
       .then(r => r.json().channel as Channel)
       .catch(err => err);
+    // this.player.onLoaded.then(result=>console.log(result));
   }
 
   getChannel(): Promise<Channel> {
