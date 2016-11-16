@@ -14,7 +14,7 @@ export class PlayerComponent implements OnInit {
   private timeoutId;
 
   constructor(private player: PodcastPlayerService) {
-    // this.player.onTimeUpdate.subscribe(time => this.currentTime = time);
+    this.player.onLoaded.subscribe(url => this.currentTime = 0);
     this.updateCurrentTime();
   }
 

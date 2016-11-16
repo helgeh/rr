@@ -8,24 +8,28 @@ import { Podcast } from '../shared';
 @Injectable()
 export class PodcastPlayerService {
 
-  // onLoaded: Promise<string>;
   onTimeUpdate: Observable<string>;
+  onLoaded: Observable<string>;
 
   private audio;
   private timeUpdateSource:Subject<string>;
+  private onLoadedSource:Subject<string>;
 
   constructor() {
-    // this.onLoaded = new Promise(resolve => this.podcastLoaded = resolve);
     this.audio = new Audio();
     this.audio.ontimeupdate = this._onTimeUpdate.bind(this);
+
     this.timeUpdateSource = new Subject<string>();
     this.onTimeUpdate = this.timeUpdateSource.asObservable();
+
+    this.onLoadedSource = new Subject<string>();
+    this.onLoaded = this.onLoadedSource.asObservable();
   }
 
   load(url: string) {
     this.audio.src = url;
     this.audio.load();
-    // this.podcastLoaded(podcast);
+    this.onLoadedSource.next(url);
   }
 
   hasSong() {
@@ -51,7 +55,5 @@ export class PodcastPlayerService {
   private _onTimeUpdate(event) {
     this.timeUpdateSource.next(this.audio.currentTime);
   }
-
-  // private podcastLoaded(podcast: Podcast) {}
 
 }
