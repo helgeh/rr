@@ -8,19 +8,22 @@ import { Podcast } from '../shared';
 @Injectable()
 export class PodcastPlayerService {
 
-  onTimeUpdate: Observable<string>;
+  onTimeUpdate: Observable<number>;
   onLoaded: Observable<string>;
 
   private audio;
-  private timeUpdateSource:Subject<string>;
+  private currentTime;
+  private timeoutId;
+  private timeUpdateSource:Subject<number>;
   private onLoadedSource:Subject<string>;
 
   constructor() {
     this.audio = new Audio();
-    this.audio.ontimeupdate = this._onTimeUpdate.bind(this);
 
-    this.timeUpdateSource = new Subject<string>();
+    this.timeUpdateSource = new Subject<number>();
     this.onTimeUpdate = this.timeUpdateSource.asObservable();
+    this.currentTime = 0;
+    this.updateCurrentTime();
 
     this.onLoadedSource = new Subject<string>();
     this.onLoaded = this.onLoadedSource.asObservable();
@@ -48,12 +51,17 @@ export class PodcastPlayerService {
     return !this.audio.paused;
   }
 
-  getCurrentTime() {
-    return this.audio.currentTime;
-  }
-
-  private _onTimeUpdate(event) {
-    this.timeUpdateSource.next(this.audio.currentTime);
+  private updateCurrentTime() {
+    if (this.hasSong()) {
+      let time = Math.floor(this.audio.currentTime) * 1000;
+      if (time > this.currentTime) {
+        this.currentTime = time;
+        this.timeUpdateSource.next(time);
+      }
+    }
+    if (this.timeoutId)
+      clearTimeout(this.timeoutId);
+    this.timeoutId = setTimeout(this.updateCurrentTime.bind(this), 100);
   }
 
 }

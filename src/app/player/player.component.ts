@@ -15,21 +15,12 @@ export class PlayerComponent implements OnInit {
 
   constructor(private player: PodcastPlayerService) {
     this.player.onLoaded.subscribe(url => this.currentTime = 0);
-    this.updateCurrentTime();
+    this.player.onTimeUpdate.subscribe(time => {
+      this.currentTime = time;
+    });
   }
 
   ngOnInit() {
-  }
-
-  updateCurrentTime() {
-    if (this.isLoaded()) {
-      let time = Math.floor(this.player.getCurrentTime()) * 1000;
-      if (time > this.currentTime) {
-        this.currentTime = time;
-      }
-    }
-    clearTimeout(this.timeoutId);
-    this.timeoutId = setTimeout(this.updateCurrentTime.bind(this), 100);
   }
 
   isLoaded() {
