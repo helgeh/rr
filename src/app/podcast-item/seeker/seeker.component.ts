@@ -11,8 +11,8 @@ export class SeekerComponent implements OnInit {
   set position(position) {
     if (!this.slider || isNaN(this.total))
       return;
-    let pc = (position * 100) / this.total;
-    let left = ((this.slider.clientWidth - this.thumbWidth) * pc) / 100;
+    let sliderWidth = this.slider.clientWidth - this.thumbWidth;
+    let left = sliderWidth * position / this.total;
     this.thumbPos = left + 'px';
   }
 
@@ -69,10 +69,9 @@ export class SeekerComponent implements OnInit {
   private getOffsetLeft(elem) {
     let offsetLeft = 0;
     do {
-      if ( !isNaN( elem.offsetLeft ) ) {
+      if (!isNaN(elem.offsetLeft))
         offsetLeft += elem.offsetLeft;
-      }
-    } while( elem = elem.offsetParent );
+    } while(elem = elem.offsetParent);
     return offsetLeft;
   }
   

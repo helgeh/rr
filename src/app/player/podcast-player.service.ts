@@ -60,8 +60,7 @@ export class PodcastPlayerService {
   }
 
   seek(time: number) {
-    if (this.audio)
-      this.audio.currentTime = time;
+    this.audio.currentTime = time;
   }
 
   getDuration() {
