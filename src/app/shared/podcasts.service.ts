@@ -25,7 +25,6 @@ export class PodcastsService {
       .toPromise()
       .then(r => r.json().channel as Channel)
       .catch(err => err);
-    // this.player.onLoaded.then(result=>console.log(result));
   }
 
   getChannel(): Promise<Channel> {
@@ -37,9 +36,11 @@ export class PodcastsService {
       .then(channel => channel.item);
   }
 
-  play(podcast: Podcast) {
+  play(podcast: Podcast, currentTime: number = NaN) {
     this.currentPodcast = podcast;
-    this.player.load(this.currentPodcast.enclosure['@attributes'].url); // getUrl());
+    this.player.load(this.currentPodcast);
+    if (!isNaN(currentTime) && currentTime > 0)
+      this.player.seek(currentTime);
     this.player.play();
   }
 

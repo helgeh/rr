@@ -9,7 +9,8 @@ import { PodcastListComponent } from './podcast-list/podcast-list.component';
 import { PodcastItemComponent } from './podcast-item/podcast-item.component';
 import { PodcastsService } from './shared';
 import { PodcastPlayerService } from './player/podcast-player.service';
-import { PlayerComponent } from './player/player.component'
+import { PlayerComponent } from './player/player.component';
+import { SeekerComponent } from './podcast-item/seeker/seeker.component'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PlayerComponent } from './player/player.component'
     PodcastListComponent,
     PodcastItemComponent,
     AppComponent,
-    PlayerComponent
+    PlayerComponent,
+    SeekerComponent
   ],
   imports: [
     BrowserModule,

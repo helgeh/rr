@@ -1,0 +1,30 @@
+
+@import '~@angular/material/core/theming/theming';
+@import 'src/dark-theme.scss';
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: md-color($dark-accent, 100);
+}
+
+.thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: md-color($dark-primary, 200);
+}
+
+.thumb:after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  top: 0;
+  bottom: 0;
+  background: md-color($dark-accent, 400);
+}

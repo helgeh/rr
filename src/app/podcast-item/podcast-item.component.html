@@ -9,3 +9,12 @@
     {{ podcast.description }}
   </md-card-subtitle>
 </md-card-title-group>
+<md-card-content>
+  <app-seeker 
+    (onSeek)="onSeek($event)" 
+    [total]="duration" 
+    [position]="currentTime" 
+    [enabled]="isActive"
+    >
+  </app-seeker>
+</md-card-content>

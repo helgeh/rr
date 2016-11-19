@@ -9,13 +9,13 @@ import { Podcast } from '../shared';
 export class PodcastPlayerService {
 
   onTimeUpdate: Observable<number>;
-  onLoaded: Observable<string>;
+  onLoaded: Observable<Podcast>;
 
   private audio;
   private currentTime;
   private timeoutId;
   private timeUpdateSource:Subject<number>;
-  private onLoadedSource:Subject<string>;
+  private onLoadedSource:Subject<Podcast>;
 
   constructor() {
     this.audio = new Audio();
@@ -25,14 +25,15 @@ export class PodcastPlayerService {
     this.currentTime = 0;
     this.updateCurrentTime();
 
-    this.onLoadedSource = new Subject<string>();
+    this.onLoadedSource = new Subject<Podcast>();
     this.onLoaded = this.onLoadedSource.asObservable();
   }
 
-  load(url: string) {
-    this.audio.src = url;
+  load(podcast: Podcast) {
+    this.currentTime = 0;
+    this.audio.src = podcast.enclosure['@attributes'].url;
     this.audio.load();
-    this.onLoadedSource.next(url);
+    this.onLoadedSource.next(podcast);
   }
 
   hasSong() {
@@ -51,10 +52,26 @@ export class PodcastPlayerService {
     return !this.audio.paused;
   }
 
+  toggle() {
+    if (this.isPlaying())
+      this.pause();
+    else
+      this.play();
+  }
+
+  seek(time: number) {
+    if (this.audio)
+      this.audio.currentTime = time;
+  }
+
+  getDuration() {
+    return this.audio.duration;
+  }
+
   private updateCurrentTime() {
     if (this.hasSong()) {
-      let time = Math.floor(this.audio.currentTime) * 1000;
-      if (time > this.currentTime) {
+      let time = Math.floor(this.audio.currentTime);
+      if (time !== this.currentTime) {
         this.currentTime = time;
         this.timeUpdateSource.next(time);
       }
