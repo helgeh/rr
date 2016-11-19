@@ -7,13 +7,14 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef }
 })
 export class SeekerComponent implements OnInit {
 
+  private _position;
   @Input() 
   set position(position) {
-    if (!this.slider || isNaN(this.total))
-      return;
-    let sliderWidth = this.slider.clientWidth - this.thumbWidth;
-    let left = sliderWidth * position / this.total;
-    this.thumbPos = left + 'px';
+    this._position = position;
+    this.updatePosition();
+  }
+  get position() {
+    return this._position;
   }
 
   @Input() total;
@@ -34,16 +35,16 @@ export class SeekerComponent implements OnInit {
   ngOnInit() {
     this.slider = this.el.nativeElement.firstChild;
     this.thumb = this.el.nativeElement.querySelector('.thumb');
-    let position = window.getComputedStyle(this.thumb, ':after').getPropertyValue('width');
-    this.thumbWidth = parseInt(position.replace('px', ''), 10);
+    let thumbW = window.getComputedStyle(this.thumb, ':after').getPropertyValue('width');
+    this.thumbWidth = parseInt(thumbW.replace('px', ''), 10);
+    this.updatePosition();
   }
 
   onMove(e) {
     if (!this.mouseIsDown || !this.enabled)
       return;
-    let w = this.slider.clientWidth;
     let left = this.getOffsetLeft(this.slider);
-    let newX = Math.min(e.clientX - left - this.thumbWidth/2, w - this.thumbWidth);
+    let newX = Math.min(e.clientX - left - this.thumbWidth/2, this.getWidth());
     this.setX(newX);
   }
 
@@ -62,8 +63,11 @@ export class SeekerComponent implements OnInit {
     if (isNaN(this.total))
       return;
     this.thumbPos = newX + 'px';
-    let pc = (newX * 100) / (this.slider.clientWidth - this.thumbWidth);
-    this.onSeek.emit({offset: newX, percent: pc, position: (this.total * pc) / 100});
+    this.onSeek.emit({
+      offset: newX, 
+      percent: newX * 100 / this.getWidth(), 
+      position: this.total * newX / this.getWidth()
+    });
   }
 
   private getOffsetLeft(elem) {
@@ -73,6 +77,17 @@ export class SeekerComponent implements OnInit {
         offsetLeft += elem.offsetLeft;
     } while(elem = elem.offsetParent);
     return offsetLeft;
+  }
+
+  private getWidth() {
+    return this.slider.clientWidth - this.thumbWidth;
+  }
+
+  private updatePosition() {
+    if (!this.slider || isNaN(this.total))
+      return;
+    let left = this.getWidth() * this.position / this.total;
+    this.thumbPos = left + 'px';
   }
   
 }

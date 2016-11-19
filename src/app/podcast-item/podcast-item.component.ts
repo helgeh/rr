@@ -32,7 +32,13 @@ export class PodcastItemComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    let time = this.podcastsService.getTime(this.podcast);
+    if (time > 0) {
+      this.duration = this.podcastsService.getDuration(this.podcast);
+      this.currentTime = time;
+    }
+  }
 
   ngOnDestroy() {
     if (this.subscription) {
@@ -49,6 +55,7 @@ export class PodcastItemComponent implements OnInit {
       this.subscription = this.player.onTimeUpdate.subscribe(time => {
         this.duration = this.player.getDuration();
         this.currentTime = time
+        this.podcastsService.setTime(this.podcast, time, this.duration);
       });
     }
   }

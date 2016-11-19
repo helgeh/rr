@@ -44,4 +44,35 @@ export class PodcastsService {
     this.player.play();
   }
 
+  getTime(podcast: Podcast): number {
+    let item = this.getStore(podcast.guid);
+    if (item)
+      return item.time || 0;
+    return 0;
+  }
+
+  setTime(podcast: Podcast, time: number, duration: number) {
+    let obj = this.getStore(podcast.guid) || {};
+    obj.time = time;
+    obj.duration = duration;
+    this.setStore(podcast.guid, obj);
+  }
+
+  getDuration(podcast: Podcast): number {
+    return this.getStore(podcast.guid, 'duration');
+  }
+
+  private getStore(id: string, prop: string = null) {
+    let str = localStorage.getItem(id);
+    if (str) {
+      let obj = JSON.parse(str);
+      return prop === null ? obj : obj[prop];
+    }
+    return null;
+  }
+
+  private setStore(id: string, value) {
+    localStorage.setItem(id, JSON.stringify(value));
+  }
+
 }
