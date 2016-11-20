@@ -34,14 +34,13 @@ export class PodcastListComponent {
     return this.podcastsService.currentPodcast == item;
   }
 
-  haveAdjacentDates(cur, prev) {
+  areAdjacent(cur, prev) {
     if (prev >= this.podcastItems.length)
       return false;
-    let a = new Date( this.podcastItems[cur].pubDate );
-    let b = new Date( this.podcastItems[prev].pubDate );
-    let day = 1000*60*60*24;
-    b.setTime(b.getTime() + day);
-    return b.getDate() !== a.getDate();
+    let a = new Date( this.podcastItems[cur].pubDate ).getTime();
+    let b = new Date( this.podcastItems[prev].pubDate ).getTime();
+    let diff = 1000*60*60*48; // <-- 2 days span to account for varying release times
+    return Math.abs(a - b) < diff;
   }
 
   // TODO: This should be throttled somehow. Maybe by adding a "load more"" button?

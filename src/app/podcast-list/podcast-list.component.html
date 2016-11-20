@@ -3,7 +3,7 @@
     <md-card class="item" [class.active]="isActive(item)">
       <app-podcast-item [podcast]="item"></app-podcast-item>
     </md-card>
-    <div *ngIf="haveAdjacentDates(idx, idx+1)">
+    <div *ngIf="!areAdjacent(idx, idx+1)">
       <hr>
     </div>
   </div>
