@@ -17,7 +17,6 @@ import { SeekerComponent } from './podcast-item/seeker/seeker.component'
     AppComponent,
     PodcastListComponent,
     PodcastItemComponent,
-    AppComponent,
     PlayerComponent,
     SeekerComponent
   ],
