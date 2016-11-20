@@ -1,6 +1,8 @@
 <div (window:scroll)="onScroll($event)">
-  <div *ngFor="let item of podcastItems; let idx = index">
-    <md-card class="item" [class.active]="isActive(item)">
+  <div  *ngFor="let item of podcastItems; let idx = index" 
+        [class.active]="isActive(item)"
+        class="item-container">
+    <md-card class="item">
       <app-podcast-item [podcast]="item"></app-podcast-item>
     </md-card>
     <div *ngIf="!areAdjacent(idx, idx+1)">

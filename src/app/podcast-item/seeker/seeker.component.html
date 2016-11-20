@@ -1,5 +1,6 @@
 <div 
   class="slider"
+  [class.active]='enabled'
   (mousemove)="onMove($event)"
   (mousedown)="onDown($event)"
   (window:mouseup)="onUp($event)"
