@@ -1,5 +1,10 @@
 <div (window:scroll)="onScroll($event)">
-  <md-card *ngFor="let item of podcastItems" class="item" [class.active]="isActive(item)">
-    <app-podcast-item [podcast]="item"></app-podcast-item>
-  </md-card>
+  <div *ngFor="let item of podcastItems; let idx = index">
+    <md-card class="item" [class.active]="isActive(item)">
+      <app-podcast-item [podcast]="item"></app-podcast-item>
+    </md-card>
+    <div *ngIf="haveAdjacentDates(idx, idx+1)">
+      <hr>
+    </div>
+  </div>
 </div>

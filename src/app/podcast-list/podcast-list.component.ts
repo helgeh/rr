@@ -34,6 +34,16 @@ export class PodcastListComponent {
     return this.podcastsService.currentPodcast == item;
   }
 
+  haveAdjacentDates(cur, prev) {
+    if (prev >= this.podcastItems.length)
+      return false;
+    let a = new Date( this.podcastItems[cur].pubDate );
+    let b = new Date( this.podcastItems[prev].pubDate );
+    let day = 1000*60*60*24;
+    b.setTime(b.getTime() + day);
+    return b.getDate() !== a.getDate();
+  }
+
   // TODO: This should be throttled somehow. Maybe by adding a "load more"" button?
   onScroll(event) {
     let reveal = (window.scrollY > window.document.body.clientHeight - window.innerHeight);

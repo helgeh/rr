@@ -9,3 +9,9 @@ md-card {
 .item.active {
     filter: brightness(1);
 }
+
+hr {
+    margin: 30px auto;
+    width: 20rem;
+    border-color: rgb(125, 125, 125);
+}
