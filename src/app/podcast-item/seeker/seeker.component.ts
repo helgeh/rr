@@ -33,6 +33,8 @@ export class SeekerComponent implements OnInit {
   constructor(private el:ElementRef) { }
 
   ngOnInit() {
+    // TODO: å manipulere DOM direkte er egentlig fy-fy. Finn en annen 
+    // måte å hente bredden til .thumb:after og .slider på. 
     this.slider = this.el.nativeElement.firstChild;
     this.thumb = this.el.nativeElement.querySelector('.thumb');
     let thumbW = window.getComputedStyle(this.thumb, ':after').getPropertyValue('width');
@@ -46,6 +48,8 @@ export class SeekerComponent implements OnInit {
     let left = this.getOffsetLeft(this.slider);
     let newX = Math.min(e.clientX - left - this.thumbWidth/2, this.getWidth());
     this.setX(newX);
+    e.preventDefault();
+    e.stopPropagation();
   }
 
   onDown(e) {

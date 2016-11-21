@@ -9,7 +9,7 @@
     {{ podcast.description }}
   </md-card-subtitle>
 </md-card-header>
-<md-card-content>
+<md-card-footer>
   <app-seeker 
     (onSeek)="onSeek($event)" 
     [total]="duration" 
@@ -17,4 +17,4 @@
     [enabled]="isActive"
     >
   </app-seeker>
-</md-card-content>
+</md-card-footer>
