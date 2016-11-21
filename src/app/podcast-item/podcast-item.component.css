@@ -6,3 +6,7 @@
     height: 50px;
     margin-top: 3px;
 }
+
+md-card-header .play_button {
+    order: -1;
+}

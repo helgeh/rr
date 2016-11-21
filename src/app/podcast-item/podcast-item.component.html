@@ -1,5 +1,5 @@
-<md-card-title-group>
-  <button md-mini-fab (click)="play()">
+<md-card-header>
+  <button md-mini-fab class="play_button" (click)="play()">
     <md-icon class="md-24">play_arrow</md-icon>
   </button>
   <md-card-title>
@@ -8,7 +8,7 @@
   <md-card-subtitle>
     {{ podcast.description }}
   </md-card-subtitle>
-</md-card-title-group>
+</md-card-header>
 <md-card-content>
   <app-seeker 
     (onSeek)="onSeek($event)" 
