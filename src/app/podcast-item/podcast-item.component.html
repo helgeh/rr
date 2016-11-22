@@ -1,7 +1,7 @@
 <md-card class="item" [class.active]="isActive">
   <md-card-header>
     <button md-mini-fab class="play_button" (click)="play()">
-      <md-icon class="md-24">play_arrow</md-icon>
+      <md-icon class="md-24">{{ isPlaying ? 'pause' : 'play_arrow' }}</md-icon>
     </button>
     <md-card-title>
       {{ podcast.title }}

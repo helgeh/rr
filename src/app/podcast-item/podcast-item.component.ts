@@ -17,6 +17,7 @@ export class PodcastItemComponent implements OnInit {
   currentTime = 0;
   duration = NaN;
   isActive = false;
+  isPlaying = false;
 
   private subscription: Subscription;
 
@@ -24,6 +25,7 @@ export class PodcastItemComponent implements OnInit {
     this.player.onLoaded.subscribe(podcast => {
       this.isActive = this.podcast.guid === podcast.guid;
       if (!this.isActive) {
+        this.isPlaying = false;
         if (this.subscription) {
           this.subscription.unsubscribe();
           this.subscription = null;
@@ -49,6 +51,7 @@ export class PodcastItemComponent implements OnInit {
   play() {
     if (this.subscription) {
       this.player.toggle();
+      this.isPlaying = !this.isPlaying;
     }
     else {
       this.podcastsService.play(this.podcast, this.currentTime);
@@ -57,6 +60,7 @@ export class PodcastItemComponent implements OnInit {
         this.currentTime = time
         this.podcastsService.setTime(this.podcast, time, this.duration);
       });
+      this.isPlaying = true;
     }
   }
 
