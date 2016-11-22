@@ -30,10 +30,6 @@ export class PodcastListComponent {
     return this.allPodcastItems.slice(0, this.cap * 10);
   }
 
-  isActive(item :Podcast) {
-    return this.podcastsService.currentPodcast == item;
-  }
-
   areAdjacent(cur, prev) {
     if (prev >= this.podcastItems.length)
       return false;

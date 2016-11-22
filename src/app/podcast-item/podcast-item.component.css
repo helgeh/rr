@@ -7,6 +7,27 @@
     margin-top: 3px;
 }
 
+md-card {
+    margin: 10px;
+    filter: brightness(0.8);
+}
+
+md-card.active {
+    filter: brightness(1);
+}
+
+md-card-header {
+    height: auto;
+    min-height: 40px;
+}
+
+/deep/ .md-card-header-text {
+    height: auto !important;
+    min-height: 40px;
+}
+
 md-card-header .play_button {
     order: -1;
+    margin-right: 12px;
+    min-width: 40px;
 }

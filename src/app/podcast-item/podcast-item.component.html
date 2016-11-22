@@ -1,20 +1,22 @@
-<md-card-header>
-  <button md-mini-fab class="play_button" (click)="play()">
-    <md-icon class="md-24">play_arrow</md-icon>
-  </button>
-  <md-card-title>
-    {{ podcast.title }}
-  </md-card-title>
-  <md-card-subtitle>
-    {{ podcast.description }}
-  </md-card-subtitle>
-</md-card-header>
-<md-card-footer>
-  <app-seeker 
-    (onSeek)="onSeek($event)" 
-    [total]="duration" 
-    [position]="currentTime" 
-    [enabled]="isActive"
-    >
-  </app-seeker>
-</md-card-footer>
+<md-card class="item" [class.active]="isActive">
+  <md-card-header>
+    <button md-mini-fab class="play_button" (click)="play()">
+      <md-icon class="md-24">play_arrow</md-icon>
+    </button>
+    <md-card-title>
+      {{ podcast.title }}
+    </md-card-title>
+    <md-card-subtitle>
+      {{ podcast.description }}
+    </md-card-subtitle>
+  </md-card-header>
+  <md-card-footer>
+    <app-seeker 
+      (onSeek)="onSeek($event)" 
+      [total]="duration" 
+      [position]="currentTime" 
+      [enabled]="isActive"
+      >
+    </app-seeker>
+  </md-card-footer>
+</md-card>
