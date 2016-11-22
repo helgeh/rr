@@ -56,6 +56,7 @@ export class PodcastItemComponent implements OnInit {
     else {
       this.podcastsService.play(this.podcast, this.currentTime);
       this.subscription = this.player.onTimeUpdate.subscribe(time => {
+        // TODO: sjekk om vi er currentPodcast eller noe
         this.duration = this.player.getDuration();
         this.currentTime = time
         this.podcastsService.setTime(this.podcast, time, this.duration);
