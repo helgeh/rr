@@ -1,5 +1,5 @@
 <div>
-  {{ currentTime | date:'mm:ss' }}
+  <app-display-time [elapsed]="currentTime"></app-display-time>
   <button md-icon-button color="accent" (click)="isPlaying() ? pause() : play()" [disabled]="!isLoaded()">
     <md-icon class="play">{{ isPlaying() ? 'pause_circle_outline' : 'play_circle_outline' }}</md-icon>
   </button>

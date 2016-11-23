@@ -10,7 +10,8 @@ import { PodcastItemComponent } from './podcast-item/podcast-item.component';
 import { PodcastsService } from './shared';
 import { PodcastPlayerService } from './player/podcast-player.service';
 import { PlayerComponent } from './player/player.component';
-import { SeekerComponent } from './podcast-item/seeker/seeker.component'
+import { SeekerComponent } from './podcast-item/seeker/seeker.component';
+import { DisplayTimeComponent } from './shared/display-time/display-time.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SeekerComponent } from './podcast-item/seeker/seeker.component'
     PodcastListComponent,
     PodcastItemComponent,
     PlayerComponent,
-    SeekerComponent
+    SeekerComponent,
+    DisplayTimeComponent
   ],
   imports: [
     BrowserModule,
