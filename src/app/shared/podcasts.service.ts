@@ -15,6 +15,7 @@ export class PodcastsService {
   private channel: Promise<Channel>;
 
   currentPodcast: Podcast;
+  webStorage: Storage;
 
   constructor(private jsonp: Jsonp, private player:PodcastPlayerService) {
     let params = new URLSearchParams();
@@ -25,6 +26,7 @@ export class PodcastsService {
       .toPromise()
       .then(r => r.json().channel as Channel)
       .catch(err => err);
+    this.webStorage = window.localStorage;
   }
 
   getChannel(): Promise<Channel> {
@@ -63,7 +65,7 @@ export class PodcastsService {
   }
 
   private getStore(id: string, prop: string = null) {
-    let str = localStorage.getItem(id);
+    let str = this.webStorage.getItem(id);
     if (str) {
       let obj = JSON.parse(str);
       return prop === null ? obj : obj[prop];
@@ -72,7 +74,7 @@ export class PodcastsService {
   }
 
   private setStore(id: string, value) {
-    localStorage.setItem(id, JSON.stringify(value));
+    this.webStorage.setItem(id, JSON.stringify(value));
   }
 
 }
