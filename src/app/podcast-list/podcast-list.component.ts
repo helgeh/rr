@@ -23,11 +23,11 @@ export class PodcastListComponent {
 
   private setItems(items: Podcast[]) {
     this.allPodcastItems = items;
-    this.podcastItems = this.getClampedItems();
+    this.podcastItems = this.getClampedItems(20);
   }
 
-  private getClampedItems(): Podcast[] {
-    return this.allPodcastItems.slice(0, this.cap * 10);
+  private getClampedItems(n: number): Podcast[] {
+    return this.allPodcastItems.slice(0, this.cap * n);
   }
 
   areAdjacent(cur, prev) {
@@ -44,7 +44,7 @@ export class PodcastListComponent {
     let reveal = (window.scrollY > window.document.body.clientHeight - window.innerHeight);
     if (reveal) {
       this.cap++;
-      this.podcastItems = this.getClampedItems();
+      this.podcastItems = this.getClampedItems(10);
     }
   }
 
