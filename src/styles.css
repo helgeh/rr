@@ -8,10 +8,6 @@ body {
     font-family: Roboto, sans-serif;
 }
 
-md-toolbar-row {
-    justify-content: space-between;
-}
-
 
 
 @keyframes spinner {
