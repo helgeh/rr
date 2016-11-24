@@ -34,6 +34,18 @@ export class AppComponent {
         event.preventDefault();
         event.stopPropagation();
         break;
+      
+      case 'ArrowRight':
+        this.player.jump(+10);
+        event.preventDefault();
+        event.stopPropagation();
+        break;
+      
+      case 'ArrowLeft':
+        this.player.jump(-5);
+        event.preventDefault();
+        event.stopPropagation();
+        break;
     
       default:
         break;

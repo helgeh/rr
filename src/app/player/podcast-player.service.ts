@@ -69,6 +69,10 @@ export class PodcastPlayerService {
     this.audio.currentTime = time;
   }
 
+  jump(delta: number) {
+    this.audio.currentTime += delta;
+  }
+
   getDuration() {
     return this.audio.duration;
   }
