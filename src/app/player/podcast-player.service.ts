@@ -11,6 +11,7 @@ export class PodcastPlayerService {
   onTimeUpdate: Observable<number>;
   onLoaded: Observable<Podcast>;
 
+  private podcast: Podcast;
   private audio;
   private currentTime;
   private timeoutId;
@@ -30,6 +31,7 @@ export class PodcastPlayerService {
   }
 
   load(podcast: Podcast) {
+    this.podcast = podcast;
     this.currentTime = 0;
     this.audio.src = podcast.enclosure['@attributes'].url;
     this.audio.load();
@@ -48,8 +50,10 @@ export class PodcastPlayerService {
     this.audio.pause();
   }
 
-  isPlaying() {
-    return !this.audio.paused;
+  isPlaying(guid: string = null) {
+    return this.hasSong() && 
+      !this.audio.paused && 
+      (guid == null || guid === this.podcast.guid);
   }
 
   toggle() {
