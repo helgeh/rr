@@ -43,11 +43,13 @@ export class PodcastPlayerService {
   }
 
   play() {
-    this.audio.play();
+    if (this.hasSong())
+      this.audio.play();
   }
 
   pause() {
-    this.audio.pause();
+    if (this.hasSong())
+      this.audio.pause();
   }
 
   isPlaying(guid: string = null) {

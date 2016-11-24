@@ -28,10 +28,9 @@ export class AppComponent {
 
   private keyDown(event) {
     switch (event.code) {
+
       case 'Space':
-        if (this.player.hasSong()) {
-          this.player.isPlaying() ? this.player.pause() : this.player.play();
-        }
+        this.player.isPlaying() ? this.player.pause() : this.player.play();
         event.preventDefault();
         event.stopPropagation();
         break;
