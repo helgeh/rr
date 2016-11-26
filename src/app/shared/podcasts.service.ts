@@ -7,6 +7,8 @@ import { PodcastPlayerService } from '../player/podcast-player.service';
 import { Channel } from './channel';
 import { Podcast } from './podcast';
 
+const LAST_PLAYED_STORE_ID: string = 'LAST_PLAYED_PODCAST';
+
 @Injectable()
 export class PodcastsService {
 
@@ -25,8 +27,21 @@ export class PodcastsService {
       .get(this.jsonpURL, {search: params})
       .toPromise()
       .then(r => r.json().channel as Channel)
+      .then(c => this.loadLastPlayed(c))
       .catch(err => err);
     this.webStorage = window.localStorage;
+  }
+
+  loadLastPlayed(c: Channel) {
+    let guid = this.getStore(LAST_PLAYED_STORE_ID);
+    this.getItems().then(items => {
+      items.forEach(item => {
+        if (item.guid == guid) {
+          this.loadItem(item);
+        }
+      });
+    });
+    return c;
   }
 
   getChannel(): Promise<Channel> {
@@ -39,11 +54,17 @@ export class PodcastsService {
   }
 
   play(podcast: Podcast, currentTime: number = NaN) {
-    this.currentPodcast = podcast;
-    this.player.load(this.currentPodcast);
+    this.setStore(LAST_PLAYED_STORE_ID, podcast.guid);
+    this.loadItem(podcast);
     if (!isNaN(currentTime) && currentTime > 0)
       this.player.seek(currentTime);
     this.player.play();
+  }
+
+  loadItem(item: Podcast) {
+    this.currentPodcast = item;
+    this.player.load(item);
+    this.player.seek(this.getTime(item));
   }
 
   getTime(podcast: Podcast): number {

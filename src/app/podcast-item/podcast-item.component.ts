@@ -33,6 +33,7 @@ export class PodcastItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isActive = this.podcast.guid == this.podcastsService.currentPodcast.guid;
     let time = this.podcastsService.getTime(this.podcast);
     if (time > 0) {
       this.duration = this.podcastsService.getDuration(this.podcast);
