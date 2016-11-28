@@ -316,7 +316,7 @@ function updateLink(linkElement, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(704);
+var content = __webpack_require__(705);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(395)(content, {});
@@ -343,7 +343,7 @@ if(false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(705);
+var content = __webpack_require__(706);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(395)(content, {});
@@ -364,7 +364,7 @@ if(false) {
 
 /***/ },
 
-/***/ 704:
+/***/ 705:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(385)();
@@ -379,7 +379,7 @@ exports.push([module.i, ".md-elevation-z0 {\n  box-shadow: 0px 0px 0px 0px rgba(
 
 /***/ },
 
-/***/ 705:
+/***/ 706:
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(385)();
@@ -388,14 +388,14 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/icon?family=Ma
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic);", ""]);
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\nbody {\r\n    background: #303030;\r\n    margin: 0;\r\n    font-family: Roboto, sans-serif;\r\n}\r\n\r\nmd-toolbar-row {\r\n    justify-content: space-between;\r\n}\r\n\r\n\r\n\r\n@keyframes spinner {\r\n    to {transform: rotate(360deg);}\r\n}\r\n\r\n@-webkit-keyframes spinner {\r\n    to {-webkit-transform: rotate(360deg);}\r\n}\r\n\r\n.spinner {\r\n    min-width: 62px;\r\n    min-height: 62px;\r\n    width: 62px;\r\n    height: 62px;\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    margin: auto;\r\n}\r\n\r\n.spinner:before {\r\n    content: 'Loading\\2026';\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 54px;\r\n    height: 54px;\r\n}\r\n\r\n.spinner:not(:required):before {\r\n    content: '';\r\n    border-radius: 50%;\r\n    border: 2px solid transparent;\r\n    border-top-color: #c8c8c8;\r\n    border-bottom-color: #c8c8c8;\r\n    animation: spinner .8s ease infinite;\r\n    -webkit-animation: spinner .8s ease infinite;\r\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\nbody {\r\n    background: #303030;\r\n    margin: 0;\r\n    font-family: Roboto, sans-serif;\r\n}\r\n\r\n::-webkit-scrollbar {\r\n  width: 4px;\r\n  height: 4px;\r\n}\r\n::-webkit-scrollbar-button {\r\n  width: 0px;\r\n  height: 0px;\r\n}\r\n::-webkit-scrollbar-thumb {\r\n  background: #e1e1e1;\r\n  border: 0px none #ffffff;\r\n  border-radius: 50px;\r\n}\r\n::-webkit-scrollbar-thumb:hover {\r\n  background: #ffffff;\r\n}\r\n::-webkit-scrollbar-thumb:active {\r\n  background: #000000;\r\n}\r\n::-webkit-scrollbar-track {\r\n  background: #4e4e4e;\r\n  border: 0px none #ffffff;\r\n  border-radius: 50px;\r\n}\r\n::-webkit-scrollbar-track:hover {\r\n  background: #666666;\r\n}\r\n::-webkit-scrollbar-track:active {\r\n  background: #333333;\r\n}\r\n::-webkit-scrollbar-corner {\r\n  background: transparent;\r\n}\r\n\r\n\r\n@keyframes spinner {\r\n    to {transform: rotate(360deg);}\r\n}\r\n\r\n@-webkit-keyframes spinner {\r\n    to {-webkit-transform: rotate(360deg);}\r\n}\r\n\r\n.spinner {\r\n    min-width: 62px;\r\n    min-height: 62px;\r\n    width: 62px;\r\n    height: 62px;\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n    margin: auto;\r\n}\r\n\r\n.spinner:before {\r\n    content: 'Loading\\2026';\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 54px;\r\n    height: 54px;\r\n}\r\n\r\n.spinner:not(:required):before {\r\n    content: '';\r\n    border-radius: 50%;\r\n    border: 2px solid transparent;\r\n    border-top-color: #c8c8c8;\r\n    border-bottom-color: #c8c8c8;\r\n    animation: spinner .8s ease infinite;\r\n    -webkit-animation: spinner .8s ease infinite;\r\n}", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 756:
+/***/ 759:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(400);
@@ -404,5 +404,5 @@ module.exports = __webpack_require__(399);
 
 /***/ }
 
-},[756]);
+},[759]);
 //# sourceMappingURL=styles.map
