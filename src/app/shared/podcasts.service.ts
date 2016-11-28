@@ -12,7 +12,7 @@ const LAST_PLAYED_STORE_ID: string = 'LAST_PLAYED_PODCAST';
 @Injectable()
 export class PodcastsService {
 
-  private jsonpURL: string = 'https://rr-backend-cyvkvqsuoh.now.sh/feed/';
+  private jsonpURL: string = 'https://rr-backend.now.sh/feed/';
   private feedURL: string = 'http://podkast.nrk.no/program/radioresepsjonen.rss';
   private channel: Promise<Channel>;
   private currentPodcast: Podcast;
