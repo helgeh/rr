@@ -27,6 +27,8 @@ export class PodcastListComponent {
   }
 
   private getClampedItems(n: number): Podcast[] {
+    if (!this.allPodcastItems)
+      return [];
     return this.allPodcastItems.slice(0, this.cap * n);
   }
 

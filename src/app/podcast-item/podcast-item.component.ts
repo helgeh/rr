@@ -22,7 +22,7 @@ export class PodcastItemComponent implements OnInit {
 
   constructor(private podcastsService: PodcastsService, private player:PodcastPlayerService) {
     this.player.onLoaded.subscribe(podcast => {
-      this.isActive = this.podcast.guid === podcast.guid;
+      this.isActive = this.podcast.guid == podcast.guid;
       if (!this.isActive) {
         if (this.subscription) {
           this.subscription.unsubscribe();
@@ -33,7 +33,10 @@ export class PodcastItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isActive = this.podcast.guid == this.podcastsService.currentPodcast.guid;
+    this.podcastsService.getCurrentPodcast()
+      .then(podcast => {
+        this.isActive = this.podcast.guid == podcast.guid;
+      });
     let time = this.podcastsService.getTime(this.podcast);
     if (time > 0) {
       this.duration = this.podcastsService.getDuration(this.podcast);

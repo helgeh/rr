@@ -12,24 +12,32 @@ const LAST_PLAYED_STORE_ID: string = 'LAST_PLAYED_PODCAST';
 @Injectable()
 export class PodcastsService {
 
-  private jsonpURL: string = 'http://rr.helye.net/get_feed.php';
+  private jsonpURL: string = 'https://rr-backend-cyvkvqsuoh.now.sh/feed/';
   private feedURL: string = 'http://podkast.nrk.no/program/radioresepsjonen.rss';
   private channel: Promise<Channel>;
+  private currentPodcast: Podcast;
 
-  currentPodcast: Podcast;
   webStorage: Storage;
 
   constructor(private jsonp: Jsonp, private player:PodcastPlayerService) {
     let params = new URLSearchParams();
-    params.set('jsonp', 'JSONP_CALLBACK');
-    params.set('feed', this.feedURL);
+    params.set('callback', 'JSONP_CALLBACK');
+    let url = this.jsonpURL + encodeURIComponent(this.feedURL);
     this.channel = this.jsonp
-      .get(this.jsonpURL, {search: params})
+      .get(url, {search: params})
       .toPromise()
-      .then(r => r.json().channel as Channel)
+      .then(r => this.parsePodcasts(r))
       .then(c => this.loadLastPlayed(c))
       .catch(err => err);
     this.webStorage = window.localStorage;
+  }
+
+  parsePodcasts(r) {
+    let c: Channel = r.json().channel;
+    for (let i = 0; i < c.item.length; i++) {
+      c.item[i].guid = c.item[i].guid._;
+    }
+    return c;
   }
 
   loadLastPlayed(c: Channel) {
@@ -51,6 +59,12 @@ export class PodcastsService {
   getItems(): Promise<Podcast[]> {
     return this.channel
       .then(channel => channel.item);
+  }
+
+  getCurrentPodcast(): Promise<Podcast> {
+    if (!this.currentPodcast)
+      return this.getItems().then(items => items[0] as Podcast);
+    return new Promise(resolve => resolve(this.currentPodcast));
   }
 
   play(podcast: Podcast, currentTime: number = NaN) {

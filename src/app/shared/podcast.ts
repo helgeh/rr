@@ -1,7 +1,7 @@
 export class Podcast {
   description: string = "";
-  enclosure: Object = {};
-  guid: string = "";
+  enclosure: any;
+  guid: any;
   pubDate: string = "";
   title: string = "";
 

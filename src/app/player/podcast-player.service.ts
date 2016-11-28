@@ -33,7 +33,7 @@ export class PodcastPlayerService {
   load(podcast: Podcast) {
     this.podcast = podcast;
     this.currentTime = 0;
-    this.audio.src = podcast.enclosure['@attributes'].url;
+    this.audio.src = podcast.enclosure.url;
     this.audio.load();
     this.onLoadedSource.next(podcast);
   }
