@@ -22,7 +22,7 @@ export class PodcastsService {
   constructor(private jsonp: Jsonp, private player:PodcastPlayerService) {
     let params = new URLSearchParams();
     params.set('callback', 'JSONP_CALLBACK');
-    let url = this.jsonpURL + encodeURIComponent(this.feedURL);
+    let url = (this.jsonpURL + encodeURIComponent(this.feedURL)).toString();
     this.channel = this.jsonp
       .get(url, {search: params})
       .toPromise()
