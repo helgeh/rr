@@ -62295,7 +62295,10 @@ var PodcastItemComponent = (function () {
         }
     };
     PodcastItemComponent.prototype.play = function () {
-        this.player.toggle();
+        if (this.subscription)
+            this.player.toggle();
+        else
+            this.podcastsService.play(this.podcast, this.currentTime);
     };
     PodcastItemComponent.prototype.isPlaying = function () {
         return this.player.isPlaying(this.podcast.guid);
