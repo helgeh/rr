@@ -3,6 +3,8 @@
   [class.active]='enabled'
   (window:mousemove)="onMove($event)"
   (mousedown)="onDown($event)"
+  (touchstart)="onDown($event)"
+  (tap)="onDown($event)"
   (window:mouseup)="onUp($event)"
   >
     <div class="thumb" [ngStyle]="{left: thumbPos}"></div>
