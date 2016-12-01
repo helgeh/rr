@@ -66,7 +66,10 @@ export class PodcastItemComponent implements OnInit {
   }
 
   play() {
-    this.player.toggle();
+    if (this.subscription)
+      this.player.toggle();
+    else
+      this.podcastsService.play(this.podcast, this.currentTime);
   }
 
   isPlaying() {
