@@ -62250,28 +62250,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var PodcastItemComponent = (function () {
     function PodcastItemComponent(podcastsService, player) {
-        var _this = this;
         this.podcastsService = podcastsService;
         this.player = player;
         this.currentTime = 0;
         this.duration = NaN;
         this.isActive = false;
-        this.player.onLoaded.subscribe(function (podcast) {
-            _this.isActive = _this.podcast.guid == podcast.guid;
-            if (!_this.isActive) {
-                if (_this.subscription) {
-                    _this.subscription.unsubscribe();
-                    _this.subscription = null;
-                }
-            }
-        });
+        this.player.onLoaded.subscribe(this.checkCurrentPodcast.bind(this));
     }
     PodcastItemComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.podcastsService.getCurrentPodcast()
-            .then(function (podcast) {
-            _this.isActive = _this.podcast.guid == podcast.guid;
-        });
+            .then(this.checkCurrentPodcast.bind(this));
         var time = this.podcastsService.getTime(this.podcast);
         if (time > 0) {
             this.duration = this.podcastsService.getDuration(this.podcast);
@@ -62283,20 +62271,31 @@ var PodcastItemComponent = (function () {
             this.subscription.unsubscribe();
         }
     };
-    PodcastItemComponent.prototype.play = function () {
-        var _this = this;
-        if (this.subscription) {
-            this.player.toggle();
+    PodcastItemComponent.prototype.checkCurrentPodcast = function (podcast) {
+        if (this.podcast.guid == podcast.guid) {
+            this.activate();
         }
         else {
-            this.podcastsService.play(this.podcast, this.currentTime);
-            this.subscription = this.player.onTimeUpdate.subscribe(function (time) {
-                // TODO: sjekk om vi er currentPodcast eller noe
-                _this.duration = _this.player.getDuration();
-                _this.currentTime = time;
-                _this.podcastsService.setTime(_this.podcast, time, _this.duration);
-            });
+            this.deactivate();
         }
+    };
+    PodcastItemComponent.prototype.activate = function () {
+        var _this = this;
+        this.isActive = true;
+        this.subscription = this.player.onTimeUpdate.subscribe(function (time) {
+            _this.duration = _this.player.getDuration();
+            _this.currentTime = time;
+        });
+    };
+    PodcastItemComponent.prototype.deactivate = function () {
+        this.isActive = false;
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+            this.subscription = null;
+        }
+    };
+    PodcastItemComponent.prototype.play = function () {
+        this.player.toggle();
     };
     PodcastItemComponent.prototype.isPlaying = function () {
         return this.player.isPlaying(this.podcast.guid);
@@ -62636,7 +62635,7 @@ var PodcastsService = (function () {
         var _this = this;
         this.jsonp = jsonp;
         this.player = player;
-        this.jsonpURL = 'https://rr-backend-cyvkvqsuoh.now.sh/feed/';
+        this.jsonpURL = 'https://rr-backend.now.sh/feed/';
         this.feedURL = 'http://podkast.nrk.no/program/radioresepsjonen.rss';
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* URLSearchParams */]();
         params.set('callback', 'JSONP_CALLBACK');
@@ -62648,6 +62647,9 @@ var PodcastsService = (function () {
             .then(function (c) { return _this.loadLastPlayed(c); })
             .catch(function (err) { return err; });
         this.webStorage = window.localStorage;
+        this.player.onTimeUpdate.subscribe(function (time) {
+            _this.setTime(_this.currentPodcast, time, _this.player.getDuration());
+        });
     }
     PodcastsService.prototype.parsePodcasts = function (r) {
         var c = r.json().channel;
@@ -65853,7 +65855,7 @@ module.exports = "<md-card class=\"item\" [class.active]=\"isActive\">\r\n  <md-
 /* 718 */
 /***/ function(module, exports) {
 
-module.exports = "<div \r\n  class=\"slider\"\r\n  [class.active]='enabled'\r\n  (window:mousemove)=\"onMove($event)\"\r\n  (mousedown)=\"onDown($event)\"\r\n  (window:mouseup)=\"onUp($event)\"\r\n  >\r\n    <div class=\"thumb\" [ngStyle]=\"{left: thumbPos}\"></div>\r\n</div>"
+module.exports = "<div \r\n  class=\"slider\"\r\n  [class.active]='enabled'\r\n  (window:mousemove)=\"onMove($event)\"\r\n  (mousedown)=\"onDown($event)\"\r\n  (touchstart)=\"onDown($event)\"\r\n  (tap)=\"onDown($event)\"\r\n  (window:mouseup)=\"onUp($event)\"\r\n  >\r\n    <div class=\"thumb\" [ngStyle]=\"{left: thumbPos}\"></div>\r\n</div>"
 
 /***/ },
 /* 719 */
