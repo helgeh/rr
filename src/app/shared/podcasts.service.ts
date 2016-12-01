@@ -29,7 +29,12 @@ export class PodcastsService {
       .then(r => this.parsePodcasts(r))
       .then(c => this.loadLastPlayed(c))
       .catch(err => err);
+    
     this.webStorage = window.localStorage;
+
+    this.player.onTimeUpdate.subscribe(time => {
+      this.setTime(this.currentPodcast, time, this.player.getDuration());
+    });
   }
 
   parsePodcasts(r) {

@@ -21,22 +21,12 @@ export class PodcastItemComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(private podcastsService: PodcastsService, private player:PodcastPlayerService) {
-    this.player.onLoaded.subscribe(podcast => {
-      this.isActive = this.podcast.guid == podcast.guid;
-      if (!this.isActive) {
-        if (this.subscription) {
-          this.subscription.unsubscribe();
-          this.subscription = null;
-        }
-      }
-    });
+    this.player.onLoaded.subscribe(this.checkCurrentPodcast.bind(this));
   }
 
   ngOnInit() {
     this.podcastsService.getCurrentPodcast()
-      .then(podcast => {
-        this.isActive = this.podcast.guid == podcast.guid;
-      });
+      .then(this.checkCurrentPodcast.bind(this));
     let time = this.podcastsService.getTime(this.podcast);
     if (time > 0) {
       this.duration = this.podcastsService.getDuration(this.podcast);
@@ -50,19 +40,33 @@ export class PodcastItemComponent implements OnInit {
     }
   }
 
-  play() {
+  private checkCurrentPodcast(podcast: Podcast) {
+      if (this.podcast.guid == podcast.guid) {
+        this.activate();
+      }
+      else {
+        this.deactivate();
+      }
+  }
+
+  activate() {
+    this.isActive = true;
+    this.subscription = this.player.onTimeUpdate.subscribe(time => {
+      this.duration = this.player.getDuration();
+      this.currentTime = time;
+    });
+  }
+
+  deactivate() {
+    this.isActive = false;
     if (this.subscription) {
-      this.player.toggle();
+      this.subscription.unsubscribe();
+      this.subscription = null;
     }
-    else {
-      this.podcastsService.play(this.podcast, this.currentTime);
-      this.subscription = this.player.onTimeUpdate.subscribe(time => {
-        // TODO: sjekk om vi er currentPodcast eller noe
-        this.duration = this.player.getDuration();
-        this.currentTime = time
-        this.podcastsService.setTime(this.podcast, time, this.duration);
-      });
-    }
+  }
+
+  play() {
+    this.player.toggle();
   }
 
   isPlaying() {
