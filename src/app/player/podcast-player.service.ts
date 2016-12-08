@@ -14,12 +14,20 @@ export class PodcastPlayerService {
   private podcast: Podcast;
   private audio;
   private currentTime;
+  private isLoaded = false;
   private timeoutId;
   private timeUpdateSource:Subject<number>;
   private onLoadedSource:Subject<Podcast>;
 
   constructor() {
     this.audio = new Audio();
+    this.audio.oncanplay = () => {
+      this.timeUpdateSource.next(this.currentTime);
+    }
+    this.audio.oncanplaythrough = () => {
+      this.isLoaded = true;
+      this.timeUpdateSource.next(this.currentTime);
+    }
 
     this.timeUpdateSource = new Subject<number>();
     this.onTimeUpdate = this.timeUpdateSource.asObservable();
@@ -28,11 +36,25 @@ export class PodcastPlayerService {
 
     this.onLoadedSource = new Subject<Podcast>();
     this.onLoaded = this.onLoadedSource.asObservable();
+
+    // TODO: Vis en statuslinje for nedlasting av lydfilen.
+    /* 
+      if ((audio.buffered != undefined) && (audio.buffered.length != 0)) {
+        $(audio).bind('progress', function() {
+          var loaded = parseInt(((audio.buffered.end(0) / audio.duration) * 100), 10);
+          loadingIndicator.css({width: loaded + '%'});
+        });
+      }
+      else {
+        loadingIndicator.remove();
+      }
+    */
   }
 
   load(podcast: Podcast) {
     this.podcast = podcast;
     this.currentTime = 0;
+    this.isLoaded = false;
     this.audio.src = podcast.enclosure.url;
     this.audio.load();
     this.onLoadedSource.next(podcast);
@@ -74,7 +96,9 @@ export class PodcastPlayerService {
   }
 
   getDuration() {
-    return this.audio.duration;
+    if (this.isLoaded)
+      return this.audio.duration;
+    return 0;
   }
 
   private updateCurrentTime() {

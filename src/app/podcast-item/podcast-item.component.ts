@@ -27,11 +27,7 @@ export class PodcastItemComponent implements OnInit {
   ngOnInit() {
     this.podcastsService.getCurrentPodcast()
       .then(this.checkCurrentPodcast.bind(this));
-    let time = this.podcastsService.getTime(this.podcast);
-    if (time > 0) {
-      this.duration = this.podcastsService.getDuration(this.podcast);
-      this.currentTime = time;
-    }
+    this.checkSavedTime();
   }
 
   ngOnDestroy() {
@@ -41,28 +37,42 @@ export class PodcastItemComponent implements OnInit {
   }
 
   private checkCurrentPodcast(podcast: Podcast) {
-      if (this.podcast.guid == podcast.guid) {
+      if (this.podcast.guid == podcast.guid) 
         this.activate();
-      }
-      else {
+      else 
         this.deactivate();
-      }
   }
 
-  activate() {
+  private activate() {
     this.isActive = true;
+    let time = this.podcastsService.getTime(this.podcast);
+    let duration = this.podcastsService.getDuration(this.podcast);
+    this.checkSavedTime();
     this.subscription = this.player.onTimeUpdate.subscribe(time => {
-      this.duration = this.player.getDuration();
-      this.currentTime = time;
+      let dur = this.player.getDuration();
+      this.updateTimes(time, dur);
     });
   }
 
-  deactivate() {
+  private deactivate() {
     this.isActive = false;
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = null;
     }
+  }
+
+  private checkSavedTime() {
+    let time = this.podcastsService.getTime(this.podcast);
+    let duration = this.podcastsService.getDuration(this.podcast);
+    this.updateTimes(time, duration);
+  }
+
+  private updateTimes(time, duration) {
+    if (time > 0) 
+      this.currentTime = time;
+    if (duration > 0)
+      this.duration = duration;
   }
 
   play() {

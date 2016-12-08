@@ -13,9 +13,9 @@
   <md-card-footer>
     <app-seeker 
       (onSeek)="onSeek($event)" 
+      [enabled]="isActive"
       [total]="duration" 
       [position]="currentTime" 
-      [enabled]="isActive"
       >
     </app-seeker>
   </md-card-footer>

@@ -7,5 +7,13 @@
   (tap)="onDown($event)"
   (window:mouseup)="onUp($event)"
   >
-    <div class="thumb" [ngStyle]="{left: thumbPos}"></div>
+    <div class="thumb" [ngStyle]="{left: (position/total*100) + '%'}"></div>
+    <div class="stops" [ngStyle]="{visibility: enabled ? 'visible' : 'hidden'}">
+      <div 
+        *ngFor="let stop of stops" 
+        class="seekerStop"
+        [ngStyle]="{left: stop.pos + '%', width: thumbWidth + 'px'}"
+        >
+      </div>
+    </div>
 </div>

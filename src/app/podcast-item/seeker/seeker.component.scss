@@ -28,8 +28,34 @@
 .thumb:after {
   content: '';
   position: absolute;
-  width: 12px;
+  width: 2px;
   top: 0;
   bottom: 0;
-  background: md-color($dark-accent, 400);
+  background: md-color($dark-warn, 400);
+}
+
+
+.stops {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.seekerStop {
+  width: 1px;
+  background: md-color($dark-primary, 100);
+  height: 3px;
+  position: absolute;
+}
+
+.seekerStop:nth-child(10n) {
+  height: 8px;
+}
+
+.seekerStop:nth-child(60n) {
+  height: 11px;
+  width: 3px;
 }
