@@ -65,8 +65,12 @@ export class PodcastPlayerService {
   }
 
   play() {
-    if (this.hasSong())
+    if (this.hasSong()) {
+      if (this.audio.currentTime >= Math.floor(this.audio.duration)-1)
+        this.audio.currentTime = 0;
       this.audio.play();
+      this.timeUpdateSource.next(this.audio.currentTime);
+    }
   }
 
   pause() {
