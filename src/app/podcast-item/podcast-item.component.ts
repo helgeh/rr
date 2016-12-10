@@ -45,8 +45,6 @@ export class PodcastItemComponent implements OnInit {
 
   private activate() {
     this.isActive = true;
-    let time = this.podcastsService.getTime(this.podcast);
-    let duration = this.podcastsService.getDuration(this.podcast);
     this.checkSavedTime();
     this.subscription = this.player.onTimeUpdate.subscribe(time => {
       let dur = this.player.getDuration();
