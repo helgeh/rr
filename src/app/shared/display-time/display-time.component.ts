@@ -9,10 +9,16 @@ export class DisplayTimeComponent implements OnInit {
 
   @Input()
   set elapsed(time:number) {
-    this.output = this.format(time);
+    this.currentTime = time;
+    this.updateTime();
   }
 
+  @Input() total;
+
   output = '';
+
+  private currentTime = 0;
+  private reverse = false;
 
   constructor() { }
 
@@ -39,6 +45,21 @@ export class DisplayTimeComponent implements OnInit {
       result = ch + result;
     }
     return result;
+  }
+
+  toggleReverse() {
+    this.reverse = !this.reverse;
+    this.updateTime();
+  }
+
+  private updateTime() {
+    let time = this.currentTime;
+    let prefix = '';
+    if (this.reverse) {
+      time = this.total - this.currentTime;
+      prefix = '-';
+    }
+    this.output = prefix + this.format(time);
   }
 
 }

@@ -10,10 +10,14 @@ import { PodcastPlayerService } from './podcast-player.service'
 export class PlayerComponent implements OnInit {
 
   currentTime = 0;
+  duration = 0;
 
   constructor(private player: PodcastPlayerService) {
     this.player.onLoaded.subscribe(podcast => this.currentTime = 0);
-    this.player.onTimeUpdate.subscribe(time => this.currentTime = time);
+    this.player.onTimeUpdate.subscribe(time => {
+      this.currentTime = time;
+      this.duration = this.player.getDuration();
+    });
   }
 
   ngOnInit() {
