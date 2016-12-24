@@ -23,6 +23,7 @@
   right: 0;
   bottom: 0;
   background: md-color($dark-primary, 200);
+  z-index: 0;
 }
 
 .thumb:after {
@@ -32,6 +33,7 @@
   top: 0;
   bottom: 0;
   background: md-color($dark-warn, 400);
+  z-index: 10;
 }
 
 
@@ -42,6 +44,7 @@
   bottom: 0;
   pointer-events: none;
   overflow: hidden;
+  z-index: 1;
 }
 
 .seekerStop {
