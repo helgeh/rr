@@ -1,14 +1,13 @@
 <div 
   class="slider"
   [class.active]='enabled'
-  (window:mousemove)="onMove($event)"
   (mousedown)="onDown($event)"
   (touchstart)="onDown($event)"
   (tap)="onDown($event)"
   (window:mouseup)="onUp($event)"
   >
     <div class="thumb" [ngStyle]="{left: (position/total*100) + '%'}"></div>
-    <div class="stops" [ngStyle]="{visibility: enabled ? 'visible' : 'hidden'}">
+    <div class="stops" (window:mousemove)="onMove($event)" *ngIf='enabled'>
       <div 
         *ngFor="let stop of stops" 
         class="seekerStop"
