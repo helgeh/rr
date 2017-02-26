@@ -17,6 +17,7 @@ export class PodcastItemComponent implements OnInit {
   currentTime = 0;
   duration = NaN;
   isActive = false;
+  isPlaying = false;
 
   private subscription: Subscription;
 
@@ -37,18 +38,18 @@ export class PodcastItemComponent implements OnInit {
   }
 
   private checkCurrentPodcast(podcast: Podcast) {
-      if (this.podcast.guid == podcast.guid) 
-        this.activate();
-      else 
-        this.deactivate();
+    if (this.podcast.guid == podcast.guid) 
+      this.activate();
+    else 
+      this.deactivate();
   }
 
   private activate() {
     this.isActive = true;
     this.checkSavedTime();
     this.subscription = this.player.onTimeUpdate.subscribe(time => {
-      let dur = this.player.getDuration();
-      this.updateTimes(time, dur);
+      let duration = this.player.getDuration();
+      this.updateTimes(time, duration);
     });
   }
 
@@ -80,9 +81,9 @@ export class PodcastItemComponent implements OnInit {
       this.podcastsService.play(this.podcast, this.currentTime);
   }
 
-  isPlaying() {
-    return this.player.isPlaying(this.podcast.guid);
-  }
+  // isPlaying() {
+  //   return this.player.isPlaying(this.podcast.guid);
+  // }
 
   onSeek(e) {
     this.player.seek(e.position);

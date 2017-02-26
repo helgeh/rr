@@ -8,12 +8,14 @@ import { Channel } from './channel';
 import { Podcast } from './podcast';
 
 const LAST_PLAYED_STORE_ID: string = 'LAST_PLAYED_PODCAST';
+const OPTIONS_KEY: string = 'OPTIONS_KEY';
 
 @Injectable()
 export class PodcastsService {
 
   private jsonpURL: string = 'https://rr-backend.now.sh/feed/';
   private feedURL: string = 'http://podkast.nrk.no/program/radioresepsjonen.rss';
+  // private feedURL: string = 'http://feeds.soundcloud.com/users/soundcloud:users:180769136/sounds.rss';
   private channel: Promise<Channel>;
   private currentPodcast: Podcast;
 
@@ -102,6 +104,17 @@ export class PodcastsService {
 
   getDuration(podcast: Podcast): number {
     return this.getStore(podcast.guid, 'duration');
+  }
+
+  setOption(key, value) {
+    let options = this.getStore(OPTIONS_KEY) || {};
+    options[key] = value;
+    this.setStore(OPTIONS_KEY, options);
+  }
+
+  getOption(key) {
+    let options = this.getStore(OPTIONS_KEY);
+    return (options === null ? {} : options)[key];
   }
 
   private getStore(id: string, prop: string = null) {

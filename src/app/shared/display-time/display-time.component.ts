@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { PodcastsService } from '../podcasts.service';
+
 @Component({
   selector: 'app-display-time',
   templateUrl: './display-time.component.html',
@@ -20,7 +22,7 @@ export class DisplayTimeComponent implements OnInit {
   private currentTime = 0;
   private reverse = false;
 
-  constructor() { }
+  constructor(private podcastsService: PodcastsService) { }
 
   ngOnInit() {
   }
@@ -49,10 +51,12 @@ export class DisplayTimeComponent implements OnInit {
 
   toggleReverse() {
     this.reverse = !this.reverse;
+    this.podcastsService.setOption('display_reverse_time', this.reverse);
     this.updateTime();
   }
 
   private updateTime() {
+    this.reverse = this.podcastsService.getOption('display_reverse_time');
     let time = this.currentTime;
     let prefix = '';
     if (this.reverse) {
